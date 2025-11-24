@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0
+          http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>jar-with-dependencies-and-tests</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <!-- Include compiled main classes -->
+        <fileSet>
+            <directory>${project.build.outputDirectory}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <!-- Include compiled test classes -->
+        <fileSet>
+            <directory>${project.build.testOutputDirectory}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <!-- Include all dependencies -->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <scope>compile</scope>
+            <unpack>true</unpack>
+            <excludes>
+                <exclude>${project.groupId}:${project.artifactId}</exclude>
+            </excludes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <scope>runtime</scope>
+            <unpack>true</unpack>
+            <excludes>
+                <exclude>${project.groupId}:${project.artifactId}</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>
+
