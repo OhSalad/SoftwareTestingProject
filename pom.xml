@@ -99,7 +99,11 @@
                 <configuration>
                     <excludes>
                         <exclude>com/pmu/Runner.class</exclude>
+                        <exclude>com/pmu/Runner$*.class</exclude>
                         <exclude>com/pmu/GradeCalculatorDriver.class</exclude>
+                        <exclude>com/pmu/GradeCalculatorDriver$*.class</exclude>
+                        <exclude>com/pmu/JavaVersionChecker.class</exclude>
+                        <exclude>com/pmu/JavaVersionChecker$*.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
