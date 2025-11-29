@@ -1,0 +1,17 @@
+# Clean and compile
+mvn clean compile
+
+# Run tests only
+mvn test
+
+# Package without tests
+mvn package -DskipTests
+
+# Clean, test, and package
+mvn clean package
+
+# Generate JaCoCo report
+mvn jacoco:report
+
+# Run specific test class
+mvn test -Dtest=CourseTest
