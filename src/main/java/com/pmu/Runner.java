@@ -25,7 +25,61 @@ public class Runner {
 
     private static final String PROJECT_DIR = System.getProperty("user.dir");
 
+    /**
+     * Checks the current Java version and attempts to configure Java 21 if not already running on it.
+     * This method scans the system for Java 21 installations and provides helpful information.
+     */
+    private static void checkAndConfigureJavaVersion() {
+        System.out.println("========================================");
+        System.out.println("Java Version Check");
+        System.out.println("========================================");
+
+        JavaVersionChecker.printJavaEnvironmentInfo();
+        System.out.println();
+
+        if (JavaVersionChecker.isCurrentVersionCompatible()) {
+            System.out.println("✓ Current Java version is compatible (Java 21 or later)");
+            System.out.println();
+            return; // Already on Java 21 or later
+        }
+
+        System.out.println("✗ Current Java version is NOT compatible. This project requires Java 21 or later.");
+        System.out.println();
+        System.out.println("Scanning your system for Java 21...");
+
+        var java21Candidates = JavaVersionChecker.scanForJava21();
+
+        if (!java21Candidates.isEmpty()) {
+            System.out.println("✓ Found " + java21Candidates.size() + " Java 21 installation(s):");
+            for (int i = 0; i < java21Candidates.size(); i++) {
+                System.out.println("  " + (i + 1) + ") " + java21Candidates.get(i));
+            }
+            System.out.println();
+            System.out.println("NOTE: To use Java 21 in future runs, set your JAVA_HOME environment variable.");
+            System.out.println("On Windows, run this command in PowerShell (as Administrator):");
+            System.out.println("  [System.Environment]::SetEnvironmentVariable(\"JAVA_HOME\", \"" + java21Candidates.get(0) + "\", \"User\")");
+            System.out.println();
+            System.out.println("Then restart your command prompt or IDE.");
+            System.out.println();
+            System.out.println("WARNING: This application may not run correctly with Java " +
+                             JavaVersionChecker.getCurrentJavaVersion() + ".");
+            System.out.println("Please set JAVA_HOME and restart.");
+        } else {
+            System.out.println("✗ No Java 21 installation found on your system.");
+            System.out.println();
+            System.out.println("Download Java 21 from one of these sources:");
+            System.out.println("  - Oracle JDK: https://www.oracle.com/java/technologies/downloads/#java21");
+            System.out.println("  - Eclipse Temurin (free): https://adoptium.net/temurin/releases/");
+            System.out.println();
+            System.out.println("After installation, set your JAVA_HOME environment variable.");
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
+        // Check Java version and attempt to configure Java 21 if needed
+        checkAndConfigureJavaVersion();
+
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 printMenu();
